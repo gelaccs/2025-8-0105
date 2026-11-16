@@ -1,0 +1,4 @@
+# Para mabasa ng PHP ang .html files (kailangan para sa login check)
+<FilesMatch "\.html$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
