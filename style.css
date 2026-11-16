@@ -512,9 +512,9 @@ nav {
  
 .islands-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
-} /* 5 columns ng island pics */
+} /* pantay ang island pics kahit 4 o 5 */
  
 .island-card img {
     width: 100%;
