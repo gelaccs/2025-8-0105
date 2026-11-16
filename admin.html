@@ -1,4 +1,10 @@
-<?php include "auth.php"; ?>
+<?php
+include "auth.php";
+include "config.php";
+
+// kunin lahat ng users, pinakabagong nag-log in sa taas
+$users = mysqli_query($conn, "SELECT fullname, username, email, last_login FROM users ORDER BY last_login DESC");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,8 +53,8 @@
         <div class="summary-container">
 
             <div class="summary-card">
-                <h3> Available Tours</h3>
-                <h2>4</h2>
+                <h3>Available Tours</h3>
+                <h2>6</h2>
             </div>
 
             <div class="summary-card">
@@ -57,8 +63,8 @@
             </div>
 
             <div class="summary-card">
-                <h3> Users</h3>
-                <h2>8</h2>
+                <h3>Users</h3>
+                <h2><?php echo mysqli_num_rows($users); ?></h2>
             </div>
 
             <div class="summary-card">
@@ -107,6 +113,22 @@
                     </div>
                     <span>Available</span>
                 </div>
+
+                <div class="tour-row">
+                    <div>
+                        <h3>INLAND TOUR</h3>
+                        <p>Beaches & Land Adventure</p>
+                    </div>
+                    <span>Available</span>
+                </div>
+
+                <div class="tour-row">
+                    <div>
+                        <h3>VAN TRANSFER</h3>
+                        <p>Book a Ride</p>
+                    </div>
+                    <span>Available</span>
+                </div>
             </div>
 
             <div class="dashboard-box">
@@ -142,7 +164,7 @@
                         <h3>Maria Santos</h3>
                         <p>Tour B</p>
                     </div>
-                    <span>Pending</span>
+                    <span class="pending">Pending</span>
                 </div>
 
                 <div class="booking-row">
@@ -167,6 +189,31 @@
                 <a href="index.html">Visit Website →</a>
             </div>
 
+        </div>
+
+        <!-- LISTAHAN NG USERS -->
+
+        <div class="dashboard-box">
+            <h2>Registered Users</h2>
+            <p>Signed up users and their last log in</p>
+
+            <table class="users-table">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Last Log In</th>
+                </tr>
+
+                <?php while ($row = mysqli_fetch_assoc($users)) { ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row["fullname"]); ?></td>
+                    <td><?php echo htmlspecialchars($row["username"]); ?></td>
+                    <td><?php echo htmlspecialchars($row["email"]); ?></td>
+                    <td><?php echo $row["last_login"] ? $row["last_login"] : "Not yet"; ?></td>
+                </tr>
+                <?php } ?>
+            </table>
         </div>
 
     </div>

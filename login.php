@@ -25,6 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user["password"])) {
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["fullname"] = $user["fullname"];
+
+        // i-save kung kailan nag-log in (para makita sa admin)
+        $update = mysqli_prepare($conn, "UPDATE users SET last_login = NOW() WHERE id = ?");
+        mysqli_stmt_bind_param($update, "i", $user["id"]);
+        mysqli_stmt_execute($update);
+
         header("Location: home.html");
         exit();
     } else {

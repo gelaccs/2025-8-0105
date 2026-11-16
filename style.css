@@ -710,6 +710,93 @@ nav {
     padding: 15px 0;
     border-bottom: 1px solid #eee;
 } /* isang row sa list ng tour/booking */
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+} /* para di sobrang lapad ang admin */
+
+.summary-card {
+    background-color: white;
+    padding: 18px;
+    border-top: 4px solid #20d0d7;
+    border-radius: 5px;
+    text-align: center;
+} /* box ng 4 na numbers sa taas */
+
+.summary-card h3 {
+    color: #777;
+    font-size: 14px;
+    font-weight: 600;
+} /* label ng number */
+
+.summary-card h2 {
+    margin-top: 5px;
+    color: #167d91;
+    font-size: 32px;
+} /* mismong number */
+
+.tour-row span,
+.booking-row span {
+    padding: 4px 12px;
+    border-radius: 12px;
+    background-color: #e3f6ec;
+    color: #1f8f5f;
+    font-size: 12px;
+    font-weight: bold;
+} /* green na label (Available / Confirmed) */
+
+.booking-row span.pending {
+    background-color: #fff3d6;
+    color: #b7791f;
+} /* orange na label pag Pending */
+
+.dashboard-box button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    background-color: #167d91;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+} /* buttons sa Quick Actions */
+
+.dashboard-box button:hover { background-color: #105d70; } /* dumidilim pag hinover */
+
+.online {
+    margin-bottom: 8px;
+    color: #1f8f5f;
+} /* Website Online na text */
+
+.dashboard-box a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #167d91;
+    font-weight: bold;
+    text-decoration: none;
+} /* Visit Website link */
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+} /* table ng users sa admin */
+
+.users-table th,
+.users-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 14px;
+} /* bawat cell ng table */
+
+.users-table th {
+    background-color: #eaf6fb;
+    color: #167d91;
+} /* header ng table */
  
 /* REVIEWS PAGE */
 .reviews-content {
