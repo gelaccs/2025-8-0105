@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["fullname"] = $user["fullname"];
 
         // i-save kung kailan nag-log in (para makita sa admin)
-        $update = mysqli_prepare($conn, "UPDATE users SET last_login = NOW() WHERE id = ?");
+        $update = mysqli_prepare($conn, "UPDATE users SET last_login = NOW(), last_activity = NOW() WHERE id = ?");
         mysqli_stmt_bind_param($update, "i", $user["id"]);
         mysqli_stmt_execute($update);
 

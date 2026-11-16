@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_login DATETIME NULL
+    last_login DATETIME NULL,
+    last_activity DATETIME NULL
 );

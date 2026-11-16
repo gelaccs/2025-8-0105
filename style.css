@@ -797,6 +797,17 @@ nav {
     background-color: #eaf6fb;
     color: #167d91;
 } /* header ng table */
+
+.status-active,
+.status-out {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+} /* label ng status */
+
+.status-active { background-color: #e3f6ec; color: #1f8f5f; } /* green = nasa website */
+.status-out { background-color: #eeeeee; color: #777; } /* grey = naka-log out */
  
 /* REVIEWS PAGE */
 .reviews-content {

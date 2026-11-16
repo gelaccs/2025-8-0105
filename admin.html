@@ -1,9 +1,12 @@
 <?php
 include "auth.php";
-include "config.php";
+include_once "config.php";
 
 // kunin lahat ng users, pinakabagong nag-log in sa taas
-$users = mysqli_query($conn, "SELECT fullname, username, email, last_login FROM users ORDER BY last_login DESC");
+// is_active = 1 kung may binuksan siyang page sa loob ng huling 5 minuto
+$users = mysqli_query($conn, "SELECT fullname, username, email, last_login,
+    last_activity >= NOW() - INTERVAL 5 MINUTE AS is_active
+    FROM users ORDER BY last_login DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -203,6 +206,7 @@ $users = mysqli_query($conn, "SELECT fullname, username, email, last_login FROM 
                     <th>Username</th>
                     <th>Email</th>
                     <th>Last Log In</th>
+                    <th>Status</th>
                 </tr>
 
                 <?php while ($row = mysqli_fetch_assoc($users)) { ?>
@@ -211,6 +215,13 @@ $users = mysqli_query($conn, "SELECT fullname, username, email, last_login FROM 
                     <td><?php echo htmlspecialchars($row["username"]); ?></td>
                     <td><?php echo htmlspecialchars($row["email"]); ?></td>
                     <td><?php echo $row["last_login"] ? $row["last_login"] : "Not yet"; ?></td>
+                    <td>
+                        <?php if ($row["is_active"]) { ?>
+                            <span class="status-active">Active</span>
+                        <?php } else { ?>
+                            <span class="status-out">Logged out</span>
+                        <?php } ?>
+                    </td>
                 </tr>
                 <?php } ?>
             </table>
