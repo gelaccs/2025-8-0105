@@ -102,6 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <button type="submit">LOG IN</button>
 
+                    <p class="already-account">
+                        No account yet?
+                        <a href="register.php">SIGN UP HERE</a>
+                    </p>
+
                 </form>
 
                 <a class="back-home" href="index.html">
