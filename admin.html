@@ -1,12 +1,8 @@
 <?php
-include "auth.php";
-include_once "config.php";
+include "admin_auth.php";
 
-// kunin lahat ng users, pinakabagong nag-log in sa taas
-// is_active = 1 kung may binuksan siyang page sa loob ng huling 5 minuto
-$users = mysqli_query($conn, "SELECT fullname, username, email, last_login,
-    last_activity >= NOW() - INTERVAL 5 MINUTE AS is_active
-    FROM users ORDER BY last_login DESC");
+// lahat ng customer; active kung may binuksan na page sa huling 5 minuto
+$users = mysqli_query($conn, "SELECT *, last_activity > NOW() - INTERVAL 5 MINUTE AS is_active FROM users WHERE role = 'customer' ORDER BY last_login DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">

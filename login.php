@@ -4,34 +4,31 @@ include "config.php";
 $message = "";
 $success = "";
 
-// galing sa register.php pag successful ang sign up
 if (isset($_GET["registered"])) {
     $success = "Account created! You can now log in.";
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $username = trim($_POST["username"]);
+if (isset($_POST["username"])) {
+    $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $password = $_POST["password"];
 
-    // hanapin ang user sa database
-    $stmt = mysqli_prepare($conn, "SELECT id, fullname, password FROM users WHERE username = ?");
-    mysqli_stmt_bind_param($stmt, "s", $username);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    // pwedeng username o email ang ilagay
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' OR email = '$username'");
     $user = mysqli_fetch_assoc($result);
 
-    // i-check kung tama ang password
     if ($user && password_verify($password, $user["password"])) {
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["fullname"] = $user["fullname"];
+        $_SESSION["role"] = $user["role"];
 
-        // i-save kung kailan nag-log in (para makita sa admin)
-        $update = mysqli_prepare($conn, "UPDATE users SET last_login = NOW(), last_activity = NOW() WHERE id = ?");
-        mysqli_stmt_bind_param($update, "i", $user["id"]);
-        mysqli_stmt_execute($update);
+        mysqli_query($conn, "UPDATE users SET last_login = NOW(), last_activity = NOW() WHERE id = " . $user["id"]);
 
-        header("Location: home.html");
+        // admin sa admin page, customer sa home
+        if ($user["role"] == "admin") {
+            header("Location: admin.html");
+        } else {
+            header("Location: home.html");
+        }
         exit();
     } else {
         $message = "Wrong username or password.";
@@ -95,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="login.php" method="post">
 
                   
-                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="text" name="username" placeholder="Username or email" required>
 
                     <input type="password" name="password" placeholder="Password" required>
                 
