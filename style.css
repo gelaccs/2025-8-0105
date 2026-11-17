@@ -11,7 +11,7 @@ img, video, iframe { max-width: 100%; } /*para di lumampas ang pic sa sceen*/
 
 .section1 {
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("el nido.jpeg") center / cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("images/el nido.jpeg") center / cover;
 }
  
 .hero {

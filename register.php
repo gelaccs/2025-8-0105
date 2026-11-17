@@ -49,7 +49,7 @@ if (isset($_POST["username"])) {
 
             <div class="logo">
 
-                <img src="gelacso.png">
+                <img src="images/gelacso.png">
 
                 <h2>
                     GELACSO TRAVEL & TOURS
