@@ -4,43 +4,27 @@ include "config.php";
 $message = "";
 $success = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $fullname = trim($_POST["fullname"]);
-    $email    = trim($_POST["email"]);
-    $username = trim($_POST["username"]);
+if (isset($_POST["username"])) {
+    $fullname = mysqli_real_escape_string($conn, $_POST["fullname"]);
+    $email    = mysqli_real_escape_string($conn, $_POST["email"]);
+    $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $password = $_POST["password"];
     $confirm  = $_POST["confirm_password"];
 
-    if ($fullname == "" || $email == "" || $username == "" || $password == "") {
-        $message = "Please fill out all fields.";
-    } else if ($password != $confirm) {
+    // check kung may gumagamit na ng username o email
+    $check = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' OR email = '$email'");
+
+    if ($password != $confirm) {
         $message = "Passwords do not match.";
+    } else if (mysqli_num_rows($check) > 0) {
+        $message = "Username or email is already taken.";
     } else {
+        // naka-hash ang password bago i-save
+        $hashed = password_hash($password, PASSWORD_DEFAULT);
+        mysqli_query($conn, "INSERT INTO users (fullname, email, username, password) VALUES ('$fullname', '$email', '$username', '$hashed')");
 
-        // check kung may gumagamit na ng username o email
-        $check = mysqli_prepare($conn, "SELECT id FROM users WHERE username = ? OR email = ?");
-        mysqli_stmt_bind_param($check, "ss", $username, $email);
-        mysqli_stmt_execute($check);
-        mysqli_stmt_store_result($check);
-
-        if (mysqli_stmt_num_rows($check) > 0) {
-            $message = "Username or email is already taken.";
-        } else {
-
-            // i-hash ang password bago i-save
-            $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-            $insert = mysqli_prepare($conn, "INSERT INTO users (fullname, email, username, password) VALUES (?, ?, ?, ?)");
-            mysqli_stmt_bind_param($insert, "ssss", $fullname, $email, $username, $hashed);
-
-            if (mysqli_stmt_execute($insert)) {
-                header("Location: login.php?registered=1");
-                exit();
-            } else {
-                $message = "Something went wrong. Please try again.";
-            }
-        }
+        header("Location: login.php?registered=1");
+        exit();
     }
 }
 ?>
