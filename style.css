@@ -955,3 +955,39 @@ footer {
     font-size: 14px;
     text-align: center;
 } /* footer sa baba ng lahat ng page */
+
+/* HAMBURGER MENU (CSS lang, walang JavaScript) */
+.menu-toggle { display: none; } /* nakatagong checkbox na nag-o-open/close ng menu */
+
+.hamburger {
+    display: none;
+    color: white;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+} /* ☰ button, lalabas lang sa phone */
+
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        text-align: left;
+    } /* logo sa kaliwa, ☰ sa kanan */
+
+    .hamburger { display: block; }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.7);
+    } /* nakatago muna ang links */
+
+    .menu-toggle:checked ~ .nav-links { display: flex; } /* lalabas pag pinindot ang ☰ */
+}
